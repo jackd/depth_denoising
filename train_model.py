@@ -12,7 +12,7 @@ _optimizers = {
 
 
 def get_train_model(
-        batch_size=64, max_steps=100000,
+        batch_size=64, max_steps=10000,
         optimizer_key='adam', learning_rate=1e-3,
         gradient_clip_value=None):
     if optimizer_key not in _optimizers:

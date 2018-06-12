@@ -21,12 +21,16 @@ def get_loss_fn(use_intermediate_loss, step_loss_fn):
                 weighted_loss = weight * loss
                 losses.append(weighted_loss)
                 weights.append(weight)
-            tf.summary.scalar('final_loss', losses[-1])
+            tf.summary.scalar('opt_loss', loss)
             loss = tf.add_n(losses) / np.sum(weights)
             return loss
         return inference_loss
     else:
-        return step_loss_fn
+        def inference_loss(inference, labels):
+            loss = step_loss_fn(inference['opt'], labels)
+            tf.summary.scalar('opt_loss', loss)
+            return loss
+        return inference_loss 
 
 
 def get_eval_model(use_intermediate_losses=True):
