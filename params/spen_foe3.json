@@ -1,0 +1,16 @@
+{
+  "inference_model": {
+    "implementation": "spen",
+    "layer_specs": [
+      {"filters": 32, "activation_spec": {"key": "softabs"}}
+    ],
+    "optimizer_kwargs": {
+      "key": "momentum",
+      "n_iters": 3,
+      "momentum": 0.75
+    }
+  },
+  "eval_model": {
+    "use_intermediate_losses": false
+  }
+}
