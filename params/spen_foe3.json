@@ -10,7 +10,7 @@
       "momentum": 0.75
     }
   },
-  "eval_model": {
+  "train_model": {
     "use_intermediate_losses": false
   }
 }

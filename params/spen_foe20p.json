@@ -11,7 +11,7 @@
       "learnable_learning_rate": true
     }
   },
-  "eval_model": {
+  "train_model": {
     "use_intermediate_losses": true
   }
 }
