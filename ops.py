@@ -12,8 +12,11 @@ def leaky_softplus(x, beta=1, alpha=0.2):
 
 def softplus(x, beta=1, threshold=20):
     with tf.name_scope('softplus'):
-        soft = 1/beta * tf.log(tf.exp(beta * x) + 1)
-        return tf.where(tf.greater(tf.abs(x), threshold/beta), x, soft)
+        soft = 1.0 / beta * tf.log(tf.exp(beta * x) + 1)
+        lim = threshold / beta
+        return tf.where(
+            tf.greater(x, lim), x,
+            tf.where(tf.less(x, -lim), tf.zeros_like(x), soft))
 
 
 def softabs(x, beta=1, threshold=20):
