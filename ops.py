@@ -10,19 +10,18 @@ def leaky_softplus(x, beta=1, alpha=0.2):
         return softplus(x, beta) - alpha*softplus(-x, beta)
 
 
-def softplus(x, beta=1, threshold=20):
+def softplus(x, beta=1):
     with tf.name_scope('softplus'):
-        soft = 1.0 / beta * tf.log(tf.exp(beta * x) + 1)
-        lim = threshold / beta
-        return tf.where(
-            tf.greater(x, lim), x,
-            tf.where(tf.less(x, -lim), tf.zeros_like(x), soft))
+        if beta == 1:
+            return tf.nn.softplus(x)
+        else:
+            return 1.0 / beta * tf.nn.softplus(x * beta)
 
 
-def softabs(x, beta=1, threshold=20):
+def softabs(x, beta=1):
     with tf.name_scope('softabs'):
         return (
-            softplus(x, beta, threshold) + softplus(-x, beta, threshold)) / 2
+            softplus(x, beta) + softplus(-x, beta)) / 2
 
 
 def get_psnr(predictions, labels, y_max=None):
